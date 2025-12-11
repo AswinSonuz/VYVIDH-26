@@ -1,95 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sonuzz — Website Release</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Website Release – Ribbon Cutting</title>
 
 <style>
     body {
         margin: 0;
-        padding: 0;
-        font-family: "Poppins", sans-serif;
-        background: linear-gradient(135deg, #0f0f0f, #1b1b1b, #262626);
+        background: #0f0f0f;
+        font-family: Poppins, sans-serif;
+        overflow: hidden;
         color: #fff;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    /* Center Stage */
+    .stage {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    /* Ribbon */
+    .ribbon {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(90deg, #ff1f4b, #ff7930);
+        position: relative;
+        z-index: 5;
+        transition: transform 1s ease, opacity 1s ease;
+    }
+
+    /* Scissors */
+    .scissors {
+        width: 80px;
+        height: 80px;
+        background: #fff;
+        border-radius: 50%;
+        position: relative;
+        animation: move-scissors 3s ease forwards;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .scissors:before,
+    .scissors:after {
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 10px;
+        background: #000;
+        border-radius: 5px;
+        transform-origin: left center;
+    }
+
+    .scissors:before {
+        transform: rotate(25deg);
+        animation: open-blade 0.6s infinite alternate ease;
+    }
+
+    .scissors:after {
+        transform: rotate(-25deg);
+        animation: open-blade 0.6s infinite alternate ease;
+    }
+
+    @keyframes open-blade {
+        from { transform: rotate(30deg); }
+        to   { transform: rotate(-10deg); }
+    }
+
+    @keyframes move-scissors {
+        0%   { transform: translateX(-50vw); }
+        70%  { transform: translateX(0); }
+        100% { transform: translateX(0); }
+    }
+
+    /* Hidden Website Content */
+    .website-content {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(30px);
+        transition: 1s ease;
         text-align: center;
     }
 
-    .container {
-        max-width: 600px;
-        padding: 20px;
+    .website-content.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
     }
 
-    h1 {
-        font-size: 2.7rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        letter-spacing: 1px;
-    }
-
-    p {
-        font-size: 1.1rem;
-        opacity: 0.8;
-        margin-bottom: 26px;
-    }
-
-    .release-btn {
-        padding: 14px 36px;
-        border: none;
-        border-radius: 12px;
-        font-size: 1.2rem;
-        font-weight: 600;
-        cursor: pointer;
-        background: linear-gradient(135deg, #ff395a, #ff9334);
-        color: #fff;
-        box-shadow: 0 8px 25px rgba(255, 80, 80, 0.4);
-        transition: 0.3s ease;
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    .release-btn:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 35px rgba(255, 80, 80, 0.55);
-    }
-
-    .release-btn:active {
-        transform: scale(0.96);
-    }
-
-    .socials {
-        margin-top: 25px;
-        opacity: 0.7;
-        font-size: 0.9rem;
-    }
-
-    .socials a {
-        color: #ff6b6b;
-        text-decoration: none;
-        margin: 0 8px;
-    }
 </style>
 </head>
 
 <body>
-<div class="container">
-    <h1>Something New Is Coming</h1>
-    <p>The official personal website of <strong>Sonuzz</strong> is about to drop.  
-    Stay tuned for something clean, aesthetic, and powerful.</p>
 
-    <!-- Link this button to your real website -->
-    <a href="https://aswinsonuz.github.io/portfolio/" class="release-btn">Enter Website</a>
+<div class="stage">
 
-    <div class="socials">
-        Follow me:
-        <a href="#">Instagram</a> • 
-        <a href="#">YouTube</a> • 
-        <a href="#">LinkedIn</a>
+    <div class="scissors" id="cutBtn"></div>
+
+    <div class="ribbon" id="ribbon"></div>
+
+    <div class="website-content" id="realSite">
+        <h1>Welcome to My Website</h1>
+        <p>The official launch of Sonuzz’s website 🎉</p>
+        <a href="https://your-main-site.com" style="
+            padding: 14px 32px;
+            background: #ff385c;
+            border-radius: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;">
+            Enter Website
+        </a>
     </div>
+
 </div>
+
+<script>
+    const cutBtn = document.getElementById("cutBtn");
+    const ribbon = document.getElementById("ribbon");
+    const realSite = document.getElementById("realSite");
+
+    cutBtn.addEventListener("click", () => {
+        ribbon.style.transform = "scaleY(0.1) rotate(6deg)";
+        ribbon.style.opacity = "0";
+
+        setTimeout(() => {
+            realSite.classList.add("active");
+            cutBtn.style.opacity = "0";
+        }, 1000);
+    });
+</script>
+
 </body>
 </html>
